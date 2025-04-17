@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hey Zach</title>
+  <style>
+    body {
+      background: #1a1a1a;
+      color: #fff;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1, p {
+      text-align: center;
+    }
+    .hidden {
+      display: none;
+    }
+    input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-top: 1rem;
+      border-radius: 4px;
+      border: none;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: none;
+      background-color: #ff4081;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #ff77a9;
+    }
+    .message {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .glow {
+      text-shadow: 0 0 10px #ff4081, 0 0 20px #ff4081;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hi there! Please type your first name:</h1>
+  <input type="text" id="nameInput" placeholder="Your name">
+  <button onclick="verifyName()">Submit</button>
+
+  <div id="step2" class="hidden">
+    <p class="message">Identity verified. Message loading....</p>
+  </div>
+
+  <div id="finalMessage" class="hidden">
+    <p class="message glow">Hey Zach, this is A speaking and I love you very much. You will pass whatever exam you are studying for. 💖</p>
+    <a href="https://www.youtube.com/watch?v=a5uQMwRMHcs" target="_blank">
+      <button>🎵 Play robot love song</button>
+    </a>
+  </div>
+
+  <script>
+    function verifyName() {
+      const name = document.getElementById('nameInput').value.trim().toLowerCase();
+      if (name === 'zach') {
+        document.getElementById('step2').classList.remove('hidden');
+        setTimeout(() => {
+          document.getElementById('finalMessage').classList.remove('hidden');
+        }, 2000);
+      } else {
+        alert("Hmm... I don’t recognize that name. Try again?");
+      }
+    }
+  </script>
+</body>
+</html>
