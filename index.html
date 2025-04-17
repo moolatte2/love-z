@@ -6,7 +6,7 @@
   <title>Hey Zach</title>
   <style>
     body {
-      background: #006400;
+      background: #0f3306;
       color: #ffffff;
       font-family: Georgia, serif;
       display: flex;
@@ -26,9 +26,10 @@
       font-size: 1rem;
       margin-top: 1rem;
       border-radius: 4px;
-      border: none;
+      border: 2px solid #333333;
       background-color: #003300;
       color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     }
     button {
       margin-top: 1rem;
@@ -36,43 +37,36 @@
       font-size: 1rem;
       border-radius: 4px;
       border: none;
-      background-color: #228b22;
+      background-color: #333333;
       color: white;
       cursor: pointer;
-      transition: background 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      transition: background 0.3s ease, transform 0.3s ease;
     }
     button:hover {
-      background-color: #32cd32;
+      background-color: #555555;
+      transform: translateY(-2px);
     }
     .message {
       margin-top: 2rem;
       font-size: 1.2rem;
-      white-space: nowrap;
       overflow: hidden;
-      border-right: .15em solid #ffffff;
-      width: 0;
-      animation: typing 4s steps(60, end) forwards, blink 0.7s step-end infinite;
-    }
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-    @keyframes blink {
-      from, to { border-color: transparent }
-      50% { border-color: #ffffff; }
+      width: 90%;
+      max-width: 600px;
+      color: white;
     }
     .glow {
-      text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+      text-shadow: none;
     }
     .loader {
-      margin-top: 20px;
+      margin: 0 auto;
       border: 4px solid #ffffff;
       border-top: 4px solid #32cd32;
       border-radius: 50%;
       width: 30px;
       height: 30px;
       animation: spin 1s linear infinite;
-      display: inline-block;
+      display: block;
     }
     @keyframes spin {
       0% { transform: rotate(0deg); }
@@ -88,9 +82,11 @@
   </div>
 
   <div id="mainContent" class="hidden">
-    <h1>Hi there! Please type your first name:</h1>
-    <input type="text" id="nameInput" placeholder="Your name">
-    <button onclick="verifyName()">Submit</button>
+    <h1 id="greeting">Hi there! Please type your first name:</h1>
+    <div id="nameEntry">
+      <input type="text" id="nameInput" placeholder="Your name">
+      <button onclick="verifyName()">Submit</button>
+    </div>
 
     <div id="step2" class="hidden">
       <div class="loader"></div>
@@ -98,12 +94,19 @@
     </div>
 
     <div id="finalMessage" class="hidden">
-      <p class="message glow" id="finalText">Hey Zach, this is A speaking and I love you very much. You will pass whatever exam you are studying for. You are so pretty and special and I cannot believe I get to have you. I'm so excited to see you soon and show you how much I missed you. 💖</p>
-      <button id="secretButton" onclick="showSecretMessage()">click if you want me to show you how much i missed you next time we see each other</button>
-      <p id="secretMessage" class="hidden">OK. necessary authorities have been notified of the request. will not be disappointed.</p>
-      <a href="https://www.youtube.com/watch?v=a5uQMwRMHcs" target="_blank">
-        <button>🤖 Play Robot Love Song</button>
-      </a>
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <p class="message glow" id="finalText">
+          Hey Zach, this is A speaking and I love you very much.<br><br>
+          You will pass whatever exam you are studying for.<br><br>
+          You are so pretty and special and I cannot believe I get to have you.<br><br>
+          I'm so excited to see you soon and show you how much I missed you. 💖
+        </p>
+        <button id="secretButton" onclick="showSecretMessage()">click if you want me to show you how much i missed you next time we see each other</button>
+        <p id="secretMessage" class="hidden">OK. necessary authorities have been notified of the request. will not be disappointed.</p>
+        <a href="https://www.youtube.com/watch?v=a5uQMwRMHcs" target="_blank">
+          <button>🤖 Play Robot Love Song</button>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -121,11 +124,12 @@
     function verifyName() {
       const name = document.getElementById('nameInput').value.trim().toLowerCase();
       if (name === 'zach') {
+        document.getElementById('nameEntry').classList.add('hidden');
         document.getElementById('step2').classList.remove('hidden');
+        document.getElementById('greeting').textContent = 'A misses you';
         setTimeout(() => {
+          document.getElementById('step2').classList.add('hidden');
           document.getElementById('finalMessage').classList.remove('hidden');
-          document.getElementById('loadingMessage').style.border = 'none';
-          document.getElementById('finalText').style.animation = 'typing 4s steps(60, end) forwards, blink 0.7s step-end infinite';
         }, 2000);
       } else {
         alert("Hmm... I don’t recognize that name. Try again?");
